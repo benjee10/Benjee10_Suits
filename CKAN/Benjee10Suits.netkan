@@ -1,0 +1,32 @@
+{
+  "spec_version"        : "v1.4",
+  "identifier"          : "Benjee10Suits",
+  "$kref"               : "#/ckan/github/benjee10/Benjee10_Suits",
+  "abstract"            : "Historical spacesuits & wearable props",
+  "author"              : "benjee10",
+  "license"             : "restricted",
+  "release_status"      : "stable",
+  "$vref"               : "#/ckan/ksp-avc",
+  "resources": {
+    "homepage": "https://github.com/benjee10/Benjee10_Suits",
+    "repository": "https://github.com/benjee10/Benjee10_Suits"
+  },
+  "depends": [
+      { "name" : "ModuleManager" },
+  ],
+  "suggests": [
+      { "name" : "HabTech2" },
+      { "name" : "reDIRECT" },
+      { "name" : "Shuttle-Orbiter-Construction-Kit" },
+      { "name" : "Benjee10MMSEV" },
+  ],
+  "install" : [
+      { "find" : "Benjee10_Suits",
+        "install_to" : "GameData"
+      }
+  ],
+  "tags": [
+      "suits",
+      "plugin"
+]
+}
