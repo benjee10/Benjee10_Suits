@@ -9,16 +9,11 @@
     "release_status": "stable",
     "resources": {
         "homepage":   "https://forum.kerbalspaceprogram.com/index.php?/topic/201382-*/",
+        "spacedock":  "https://spacedock.info/mod/2675/Benjee10's%20Historical%20Kerbal%20Suits",
         "repository": "https://github.com/benjee10/Benjee10_Suits"
     },
     "depends": [
         { "name" : "ModuleManager" }
-    ],
-    "suggests": [
-        { "name" : "HabTech2" },
-        { "name" : "reDIRECT" },
-        { "name" : "Shuttle-Orbiter-Construction-Kit" },
-        { "name" : "Benjee10MMSEV" }
     ],
     "install" : [ {
         "find":        "Benjee10_Suits",
