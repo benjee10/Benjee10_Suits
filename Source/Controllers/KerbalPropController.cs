@@ -17,6 +17,7 @@ namespace WearableProps.Controllers
         private const string MODULENAME = "KerbalPropController";
 
         private KerbalEVA kerbal;
+        private ModuleEvaChute evaChute;
         private ModuleInventoryPart inventory;
 
         private Dictionary<string, ModuleWearableProp> props;
@@ -53,6 +54,7 @@ namespace WearableProps.Controllers
         public void Start()
         {
             kerbal = part.Modules.GetModule<KerbalEVA>();
+            evaChute = part.Modules.GetModule<ModuleEvaChute>();
             inventory = kerbal.ModuleInventoryPartReference;
 
             props = PartLoader.LoadedPartsList.Where(p => p.partPrefab.FindModuleImplementing<ModuleWearableProp>())
@@ -85,6 +87,14 @@ namespace WearableProps.Controllers
             foreach (var partProp in props)
             {
                 ModuleWearableProp module = partProp.Value;
+
+                if (module.suitType != SuitType.All)
+                {
+                    ProtoCrewMember protoCrewMember = vessel.GetVesselCrew().FirstOrDefault();
+                    if (protoCrewMember.suit.ToString() != module.suitType.ToString())
+                        return;
+                }
+                
                 Transform attachTransform = Utilities.GetTransformAlias(kerbal, module.attachTransform);
                 GameObject partPrefab = module.part.partInfo.partPrefab.FindModelTransform("model").gameObject;
 
@@ -222,6 +232,9 @@ namespace WearableProps.Controllers
                 kerbal.StorageSlimTransform.gameObject.SetActive(false);
                 kerbal.BackpackStTransform.gameObject.SetActive(false);
                 kerbal.ChuteStTransform.gameObject.SetActive(true);
+
+                evaChute.SetCanopy(kerbal.ChuteStTransform);
+                kerbal.HasParachute = true;
             }
             else if (onlyProps && jetpack)
             {

@@ -14,6 +14,14 @@ namespace WearableProps
         HELMETPROP
     }
 
+    public enum SuitType
+    {
+        Default,
+        Vintage,
+        Future,
+        All
+    }
+
     public class ModuleWearableProp : PartModule
     {
         [KSPField]
@@ -32,7 +40,7 @@ namespace WearableProps
         public string visorAnimationName;
 
         [KSPField]
-        public float camOffset = 0f;
+        public SuitType suitType = SuitType.All;
 
         [KSPField]
         public PropType propType = PropType.PROP;
