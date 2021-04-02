@@ -11,11 +11,9 @@ using WearableProps.IVA;
 
 namespace WearableProps.Controllers
 {
-    [KSPAddon(KSPAddon.Startup.Flight, false)]
-    public class KerbalSuitController : MonoBehaviour
+    public class KerbalSuitController : InternalModule
     {
         private const string DISPLAYNAME = "WearableProps";
-        private const int framesDelay = 5;
 
         public void Awake()
         {
@@ -27,83 +25,51 @@ namespace WearableProps.Controllers
 
         public void Start()
         {
-            CheckIVASuits();
-
-            GameEvents.onVesselCrewWasModified.Add(OnVesselCrewWasModified);
-            GameEvents.onVesselChange.Add(OnVesselCrewWasModified);
-            GameEvents.onVesselWasModified.Add(OnVesselCrewWasModified);
+            CheckIVASuits(vessel);
+            GameEvents.onVesselCrewWasModified.Add(CheckIVASuits);
+            GameEvents.onVesselChange.Add(CheckIVASuits);
+            GameEvents.onVesselWasModified.Add(CheckIVASuits);
         }
 
-        private void OnVesselCrewWasModified(Vessel vessel)
+
+        public void CheckIVASuits(Vessel vessel)
         {
-            if (FlightGlobals.ActiveVessel != vessel)
+            if (this.vessel != vessel)
                 return;
 
-            if (vessel.isEVA)
-                return;
-
-            StartCoroutine(DelayedUpdate());
-        }
-
-        private IEnumerator DelayedUpdate()
-        {
-            for (int i = 0; i < framesDelay; i++)
+            try
             {
-                yield return null;
-            }
-
-            CheckIVASuits();
-        }
-
-        public void CheckIVASuits()
-        {
-            foreach (Vessel vessel in FlightGlobals.VesselsLoaded)
-            {
-                if (FlightGlobals.ActiveVessel != vessel)
-                    continue;
-
-                if (vessel.isEVA)
-                    continue;
-
-                foreach (Part part in vessel.parts)
+                foreach (Kerbal kerbal in internalModel.transform.GetComponentsInChildren<Kerbal>(false))
                 {
-                    if (part.isVesselEVA)
-                        continue;
-
-                    try
+                    if (CheckKerbalSuit(kerbal, out IVASuit ivaSuit))
                     {
-                        foreach (Kerbal kerbal in part.internalModel.transform.GetComponentsInChildren<Kerbal>(false))
+                        Texture suitTexture = GameDatabase.Instance.GetTexture(ivaSuit.suitTexture, false);
+                        Texture normalTexture = GameDatabase.Instance.GetTexture(ivaSuit.normalTexture, true);
+
+                        foreach (SkinnedMeshRenderer smr in kerbal.transform.GetComponentsInChildren<SkinnedMeshRenderer>(false))
                         {
-                            if (CheckKerbalSuit(kerbal, out IVASuit ivaSuit))
+                            switch (smr.name)
                             {
-                                Texture suitTexture = GameDatabase.Instance.GetTexture(ivaSuit.suitTexture, false);
-                                Texture normalTexture = GameDatabase.Instance.GetTexture(ivaSuit.normalTexture, true);
-                                foreach (SkinnedMeshRenderer smr in kerbal.transform.GetComponentsInChildren<SkinnedMeshRenderer>(false))
-                                {
-                                    switch (smr.name)
-                                    {
-                                        case "body01":
-                                        case "helmet":
-                                        case "mesh_female_kerbalAstronaut01_body01":
-                                        case "mesh_female_kerbalAstronaut01_helmet":
-                                            smr.material.SetTexture("_MainTex", suitTexture);
-                                            smr.material.SetTextureScale("_MainTex", new Vector2(1f, -1f));
-                                            smr.material.SetTexture("_BumpMap", normalTexture);
-                                            smr.material.SetTextureScale("_BumpMap", new Vector2(1f, -1f));
-                                            break;
-                                    }
-                                }
-                                kerbal.textureStandard = suitTexture as Texture2D;
-                                kerbal.textureVeteran = suitTexture as Texture2D;
+                                case "body01":
+                                case "helmet":
+                                case "mesh_female_kerbalAstronaut01_body01":
+                                case "mesh_female_kerbalAstronaut01_helmet":
+                                    smr.material.SetTexture("_MainTex", suitTexture);
+                                    smr.material.SetTextureScale("_MainTex", new Vector2(1f, -1f));
+                                    smr.material.SetTexture("_BumpMap", normalTexture);
+                                    smr.material.SetTextureScale("_BumpMap", new Vector2(1f, -1f));
+                                    break;
                             }
                         }
+                        kerbal.textureStandard = suitTexture as Texture2D;
+                        kerbal.textureVeteran = suitTexture as Texture2D;
                     }
-                    catch(Exception)
-                    {
-                        Debug.Log($"[{DISPLAYNAME}] Could not find internal Model. Continuing...");
-                    }    
                 }
             }
+            catch(Exception)
+            {
+                Debug.Log($"[{DISPLAYNAME}] Error finding IVA Kerbals. Continuing...");
+            }                   
         }
 
         public bool CheckKerbalSuit(Kerbal kerbal, out IVASuit ivaSuit)
@@ -121,8 +87,9 @@ namespace WearableProps.Controllers
 
         public void OnDestroy()
         {
-            GameEvents.onVesselCrewWasModified.Remove(OnVesselCrewWasModified);
-            GameEvents.onVesselChange.Remove(OnVesselCrewWasModified);
+            GameEvents.onVesselCrewWasModified.Remove(CheckIVASuits);
+            GameEvents.onVesselChange.Remove(CheckIVASuits);
+            GameEvents.onVesselWasModified.Remove(CheckIVASuits);
         }
     }
 }
