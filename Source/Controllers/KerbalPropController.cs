@@ -87,6 +87,14 @@ namespace WearableProps.Controllers
             foreach (var partProp in props)
             {
                 ModuleWearableProp module = partProp.Value;
+
+                if (module.suitType != SuitType.All)
+                {
+                    ProtoCrewMember protoCrewMember = vessel.GetVesselCrew().FirstOrDefault();
+                    if (protoCrewMember.suit.ToString() != module.suitType.ToString())
+                        return;
+                }
+                
                 Transform attachTransform = Utilities.GetTransformAlias(kerbal, module.attachTransform);
                 GameObject partPrefab = module.part.partInfo.partPrefab.FindModelTransform("model").gameObject;
 
