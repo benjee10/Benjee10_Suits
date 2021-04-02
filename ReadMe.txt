@@ -1,4 +1,4 @@
-Historical Kerbal Suits 1.0.0
+Historical Kerbal Suits 1.0.1
 A set of custom historical-inspired space suits & props for KSP 1.10.0+ by Benjee10.]
 
 FEATURES
@@ -25,6 +25,9 @@ Requires the following (bundled with install):
   - Module Manager (tested against 4.1.4)
 
 CHANGELOG
+1.0.1 - HOTFIX
+  - Fixed parachute deployment issue
+  - Prevent EMU helmet light being attached to incorrect suit type
 1.0.0 - PUBLIC RELEASE
   - Initial release
 
