@@ -1,8 +1,8 @@
-Historical Kerbal Suits 1.0.1
+Historical Kerbal Suits 1.1.0
 A set of custom historical-inspired space suits & props for KSP 1.10.0+ by Benjee10.]
 
 FEATURES
-- 6 custom, highly detailed spacesuit types based on real historical spacesuits. Includes ACES (orange & blue variants), Apollo (A7L & A7LB variants), EMU (multiple variants), Sokol (Soyuz) suit and Stirzh (Buran) suit. 
+- 7 custom, highly detailed spacesuit types based on real historical spacesuits. Includes ACES (orange & blue variants), Apollo (A7L & A7LB variants), EMU (multiple variants), Sokol (Soyuz) suit, Strizh (Buran) suit, and OCSS (Orion/Artemis) suit. 
 - Replaceable IVA suits. Thanks to a custom plugin, SuitCombos are able to override the spacesuits Kerbals wear in IVA.
 - Wearable props utilising the stock inventory system (requires KSP 1.11 or later): ACES helmet with adjustable black sun visor; EMU helmet light (attaches to stock suit helmets)
 
@@ -25,6 +25,8 @@ Requires the following (bundled with install):
   - Module Manager (tested against 4.1.4)
 
 CHANGELOG
+1.1.0 - PUBLIC RELEASE
+  - Added Orion Crew Survival Suit
 1.0.1 - HOTFIX
   - Fixed parachute deployment issue
   - Prevent EMU helmet light being attached to incorrect suit type
@@ -33,6 +35,6 @@ CHANGELOG
 
 LICENSE
 WearableProps plugin written by ValiZockt.
-Artwork is copyright Benedict Jewer 2020-2021. 
+Artwork is copyright Benedict Jewer 2020-2022. 
 All Rights Reserved.
 
