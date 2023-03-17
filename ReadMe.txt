@@ -23,6 +23,7 @@ Requires the following (bundled with install):
 CHANGELOG
 1.2.0 - IN DEVELOPMENT
   - Added xEMU helmet part
+  - Added SR-71 Flight Suit
 1.1.0 - PUBLIC RELEASE
   - Added Orion Crew Survival Suit
 1.0.1 - HOTFIX
@@ -33,6 +34,6 @@ CHANGELOG
 
 LICENSE
 WearableProps plugin written by ValiZockt.
-Artwork is copyright Benedict Jewer 2020-2022. 
+Artwork is copyright Benedict Jewer 2020-2023. 
 All Rights Reserved.
 
