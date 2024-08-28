@@ -24,6 +24,7 @@ CHANGELOG
 1.2.0 - IN DEVELOPMENT
   - Added xEMU helmet part
   - Added SR-71 Flight Suit
+  - Added VAB Organizer configs
 1.1.0 - PUBLIC RELEASE
   - Added Orion Crew Survival Suit
 1.0.1 - HOTFIX
