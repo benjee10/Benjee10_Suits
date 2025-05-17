@@ -14,7 +14,7 @@ namespace WearableProps.PropComponents
         public bool isHelmet;
         public List<Light> lights;
 
-        private Light stockLight;
+        //private Light stockLight; // doesn't seem to be used anywhere?
 
         public void Start()
         {
@@ -65,6 +65,13 @@ namespace WearableProps.PropComponents
             {
                 light.gameObject.SetActive(false);
             }
+        }
+
+        public void OnDestroy()
+        {
+            UIButtonToggle toggle = GameObject.Find("ButtonActionGroupLights").GetComponent<UIButtonToggle>();
+            toggle.onToggleOn.RemoveListener(OnLightsOn);
+            toggle.onToggleOff.RemoveListener(OnLightsOff);
         }
     }
 }

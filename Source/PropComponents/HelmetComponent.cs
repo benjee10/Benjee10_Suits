@@ -223,6 +223,13 @@ namespace WearableProps.Components
             kerbal.helmetMesh.enabled = true;
             kerbal.VisorRenderer.enabled = true;
             kerbal.headLamp.SetActive(true);
-        }      
+        }
+
+        public void OnDestroy()
+        {
+            GameEvents.OnVisorLowering.Remove(OnVisorLowering);
+            GameEvents.OnVisorRaising.Remove(OnVisorRaised);
+            GameEvents.OnHelmetChanged.Remove(OnHelmetChanged);
+        }
     }
 }

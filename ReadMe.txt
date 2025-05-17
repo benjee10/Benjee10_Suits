@@ -11,7 +11,6 @@ KNOWN ISSUES
 - Wearable props do not work on versions of KSP pre 1.11.0 due to changes in the stock inventory system. 
 - May conflict with other mods that affect the stock Inventory System/Kerbal transforms.
 - Custom suit textures will not work correctly with TextureReplacer installed - you will need to untick the 'customise kerbal suits' option in the TextureReplacer settings to fix this. 
-- Sun visor on ACES suit helmet is non-transparent. We're working on it. 
 
 INSTALLATION
 Place the contents of GameData/ into your KSP/GameData/ directory and install necessary dependencies.

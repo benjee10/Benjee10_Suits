@@ -248,5 +248,11 @@ namespace WearableProps.Controllers
                 kerbal.BackpackStTransform.gameObject.SetActive(false);
             }
         }
+
+        public void OnDestroy()
+        {
+            GameEvents.onModuleInventoryChanged.Remove(OnModuleInventoryChanged);
+            GameEvents.onModuleInventorySlotChanged.Remove(OnModuleSlotChanged);
+        }
     }
 }
